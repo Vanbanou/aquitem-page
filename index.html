@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aquitem</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #f47c20;
+            --secondary-color: #34495e;
+            --background-color: #f9f9f9;
+            --text-color: #333;
+            --light-gray: #f0f0f0;
+            --dark-gray: #555;
+            --font-family-body: 'Poppins', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family-body);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .flex {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Cabeçalho */
+        header {
+            padding: 20px 0;
+            background: #fff;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        header .flex {
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('map-bg.png') no-repeat center center/cover;
+        }
+
+        .hero-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+            margin-bottom: 30px;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hero-image img {
+            max-width: 400px;
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.137);
+            transition: transform 0.3s ease;
+        }
+
+        .hero-image img:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Downloads Section */
+        .downloads {
+            padding: 60px 0;
+            background-color: #fff;
+            /* Fundo branco para se destacar */
+        }
+
+        .downloads h2 {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            /* Margem ajustada */
+        }
+
+        .downloads .section-intro {
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+            color: var(--dark-gray);
+        }
+
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .download-card {
+            background: var(--light-gray);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            /* Garante que os cards tenham a mesma altura */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .download-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .download-card i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .download-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .download-card p {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+            margin-bottom: 20px;
+            flex-grow: 1;
+            /* Permite que o parágrafo cresça */
+        }
+
+        .btn {
+            display: inline-block;
+            width: 100%;
+            /* Botões preenchem o espaço */
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            background-color: var(--primary-color);
+            color: #fff;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #d96510;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 60px 0;
+            background-color: var(--background-color);
+        }
+
+        .features h2 {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin-bottom: 40px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .feature-item {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid var(--primary-color);
+            font-size: 1rem;
+        }
+
+        /* CSS para realce de texto */
+        .feature-item p strong {
+            font-weight: 700;
+            color: var(--secondary-color);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Rodapé */
+        footer {
+            padding: 30px 0;
+            text-align: center;
+            background: var(--secondary-color);
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            margin: 0 8px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .flex {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-image {
+                margin-top: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container flex">
+            <a href="#" class="logo">Aquitem</a>
+            <img src="logo.webp" alt="Logo do Aquitem" class="logo-img" style="max-width: 50px;">
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container flex">
+            <div class="hero-content">
+                <h1>Gás e Combustível na Tua Banda 🇦🇴</h1>
+                <p>
+                    Aquitem ajuda-te a encontrar o que precisas, quando mais precisas. Simples, rápido e confiável.
+                </p>
+            </div>
+            <div class="hero-image">
+                <img src="mokup.webp" alt="Mockup do aplicativo Aquitem">
+            </div>
+        </div>
+    </section>
+
+    <section class="downloads">
+        <div class="container text-center">
+            <h2>Baixe o aplicativo</h2>
+            <p class="section-intro">Para garantir o melhor desempenho, oferecemos versões otimizadas para diferentes telemóveis. Escolha a mais adequada para si.</p>
+            <div class="download-grid">
+                <div class="download-card">
+                    <i class="fas fa-rocket"></i>
+                    <h3>64-bit (Recomendado)</h3>
+                    <p>Ideal para a <strong>maioria dos telemóveis modernos</strong> (lançados a partir de 2015). Oferece a máxima velocidade e eficiência.</p>
+                    <a href="aquitem-64bit.apk" class="btn">Baixar</a>
+                </div>
+                <div class="download-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>32-bit</h3>
+                    <p>Para telemóveis <strong>um pouco mais antigos</strong> ou alguns modelos de entrada. Garante a compatibilidade com uma vasta gama de aparelhos.</p>
+                    <a href="aquitem-32bit.apk" class="btn">Baixar</a>
+                </div>
+                <div class="download-card">
+                    <i class="fas fa-box-open"></i>
+                    <h3>Universal</h3>
+                    <p>Na dúvida? Esta versão funciona em todos os telemóveis. Note que, por incluir tudo, o seu <strong>tamanho de ficheiro é maior</strong>.</p>
+                    <a href="aquitem-universal.zip" class="btn">Baixar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container text-center">
+            <h2>Vantagens</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <p>⚡ <strong class="realce-texto">Procura Rápida</strong></p>
+                </div>
+                <div class="feature-item">
+                    <p>📍 <strong class="realce-texto">Localização em Tempo Real</strong></p>
+                </div>
+                <div class="feature-item">
+                    <p>✅ <strong class="realce-texto">Informações Confiáveis</strong></p>
+                </div>
+                <div class="feature-item">
+                    <p>🇦🇴 <strong class="realce-texto">Feito em Angola</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>utalahari@gmail.com</p>
+            <p>
+                <a href="#">Facebook</a> |
+                <a href="#">Instagram</a> |
+                <a href="#">Twitter</a>
+            </p>
+            <p>&copy; 2025 Aquitem - Orgulhosamente feito em Angola.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
     <title>Aquitem</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -114,14 +113,12 @@
         .downloads {
             padding: 60px 0;
             background-color: #fff;
-            /* Fundo branco para se destacar */
         }
 
         .downloads h2 {
             font-size: 2rem;
             color: var(--secondary-color);
             margin-bottom: 20px;
-            /* Margem ajustada */
         }
 
         .downloads .section-intro {
@@ -143,7 +140,6 @@
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             height: 100%;
-            /* Garante que os cards tenham a mesma altura */
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -171,13 +167,11 @@
             color: var(--dark-gray);
             margin-bottom: 20px;
             flex-grow: 1;
-            /* Permite que o parágrafo cresça */
         }
 
         .btn {
             display: inline-block;
             width: 100%;
-            /* Botões preenchem o espaço */
             padding: 14px 28px;
             border-radius: 8px;
             text-decoration: none;
@@ -284,25 +278,7 @@
             <h2>Baixe o aplicativo</h2>
             <p class="section-intro">Para garantir o melhor desempenho, oferecemos versões otimizadas para diferentes telemóveis. Escolha a mais adequada para si.</p>
             <div class="download-grid">
-                <div class="download-card">
-                    <i class="fas fa-rocket"></i>
-                    <h3>64-bit (Recomendado)</h3>
-                    <p>Ideal para a <strong>maioria dos telemóveis modernos</strong> (lançados a partir de 2015). Oferece a máxima velocidade e eficiência.</p>
-                    <a href="https://www.mediafire.com/file/ocmgwsbvr8bjpo3/Aquitem-64-bit.apk/file" class="btn">Baixar</a>
                 </div>
-                <div class="download-card">
-                    <i class="fas fa-mobile-alt"></i>
-                    <h3>32-bit</h3>
-                    <p>Para telemóveis <strong>um pouco mais antigos</strong> ou alguns modelos mais acessíveis. Garante a compatibilidade com uma vasta gama de aparelhos.</p>
-                    <a href="https://www.mediafire.com/file/9xiaa0rnov85jmk/Aquitem-32-bit.apk/file" class="btn">Baixar</a>
-                </div>
-<!--                 <div class="download-card">
-                    <i class="fas fa-box-open"></i>
-                    <h3>Universal</h3>
-                    <p>Na dúvida? Esta versão funciona em todos os telemóveis. Note que, por incluir tudo, o seu <strong>tamanho de ficheiro é maior</strong>.</p>
-                    <a href="aquitem-universal.zip" class="btn">Baixar</a>
-                </div> -->
-            </div>
         </div>
     </section>
 
@@ -337,6 +313,37 @@
             <p>&copy; 2025 Aquitem - Feito em Angola.</p>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const userAgent = navigator.userAgent;
+            const downloadGrid = document.querySelector('.download-grid');
+            
+            // Verifica a arquitetura do dispositivo. 'x64' ou 'Win64' são para PCs, 'arm64' para telemóveis Android.
+            const is64Bit = userAgent.includes('x64') || userAgent.includes('Win64') || userAgent.includes('arm64');
+            
+            const card64BitHTML = `
+                <div class="download-card">
+                    <i class="fas fa-rocket"></i>
+                    <h3>64-bit ${is64Bit ? '(Recomendado)' : ''}</h3>
+                    <p>Ideal para a <strong>maioria dos telemóveis modernos</strong> (lançados a partir de 2015). Oferece a máxima velocidade e eficiência.</p>
+                    <a href="https://www.mediafire.com/file/ocmgwsbvr8bjpo3/Aquitem-64-bit.apk/file" class="btn">Baixar</a>
+                </div>
+            `;
+            
+            const card32BitHTML = `
+                <div class="download-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>32-bit ${!is64Bit ? '(Recomendado)' : ''}</h3>
+                    <p>Para telemóveis <strong>um pouco mais antigos</strong> ou alguns modelos mais acessíveis. Garante a compatibilidade com uma vasta gama de aparelhos.</p>
+                    <a href="https://www.mediafire.com/file/9xiaa0rnov85jmk/Aquitem-32-bit.apk/file" class="btn">Baixar</a>
+                </div>
+            `;
+            
+            // Limpa o conteúdo original e adiciona os cards na ordem correta
+            downloadGrid.innerHTML = is64Bit ? card64BitHTML + card32BitHTML : card32BitHTML + card64BitHTML;
+        });
+    </script>
 </body>
 
 </html>

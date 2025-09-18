@@ -61,10 +61,25 @@
             justify-content: space-between;
         }
 
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-container .logo-img {
+            max-width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+            box-shadow: 0 0 10px rgba(244, 124, 32, 0.5);
+        }
+
         .logo {
             font-size: 1.8rem;
             font-weight: 700;
-            color: var(--primary-color);
+            color: var(--secondary-color);
             text-decoration: none;
         }
 
@@ -185,6 +200,31 @@
             background-color: #d96510;
         }
 
+        /* Aviso de Download */
+        .download-warning {
+            margin-top: 50px;
+            padding: 25px;
+            background-color: #ffeded;
+            border: 1px solid #ffc2c2;
+            border-radius: 10px;
+            text-align: center;
+            color: #d63d3d;
+        }
+
+        .download-warning p {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .download-warning p strong {
+            color: #d63d3d;
+        }
+
+        .download-warning .icon {
+            margin-right: 10px;
+            color: #d63d3d;
+        }
+
         /* Features Section */
         .features {
             padding: 60px 0;
@@ -247,6 +287,10 @@
             .hero-image {
                 margin-top: 40px;
             }
+
+            .logo-container {
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -254,8 +298,10 @@
 <body>
     <header>
         <div class="container flex">
-            <a href="#" class="logo">Aquitem</a>
-            <img src="logo.webp" alt="Logo do Aquitem" class="logo-img" style="max-width: 50px;">
+            <div class="logo-container">
+                <img src="logo.webp" alt="Logo do Aquitem" class="logo-img">
+                <a href="#" class="logo">Aquitem</a>
+            </div>
         </div>
     </header>
 
@@ -279,6 +325,9 @@
             <p class="section-intro">Para garantir o melhor desempenho, oferecemos versões otimizadas para diferentes telemóveis. Escolha a mais adequada para si.</p>
             <div class="download-grid">
                 </div>
+            <div class="download-warning">
+                <p><i class="fas fa-exclamation-triangle icon"></i><strong>Atenção:</strong> Ao baixar, o seu telemóvel pode mostrar um aviso de segurança. Isso acontece porque o download é feito fora da Google Play Store. O aplicativo Aquitem é 100% seguro e não contém vírus.</p>
+            </div>
         </div>
     </section>
 
@@ -326,7 +375,7 @@
                 <div class="download-card">
                     <i class="fas fa-rocket"></i>
                     <h3>64-bit ${is64Bit ? '(Recomendado)' : ''}</h3>
-                    <p>Ideal para a <strong>maioria dos telemóveis modernos</strong> (lançados a partir de 2015). Oferece a máxima velocidade e eficiência.</p>
+                    <p>Para telemóveis <strong>modernos e potentes</strong>. Oferece a melhor performance, com maior velocidade e eficiência.</p>
                     <a href="https://www.mediafire.com/file/ocmgwsbvr8bjpo3/Aquitem-64-bit.apk/file" class="btn">Baixar</a>
                 </div>
             `;
@@ -335,7 +384,7 @@
                 <div class="download-card">
                     <i class="fas fa-mobile-alt"></i>
                     <h3>32-bit ${!is64Bit ? '(Recomendado)' : ''}</h3>
-                    <p>Para telemóveis <strong>um pouco mais antigos</strong> ou alguns modelos mais acessíveis. Garante a compatibilidade com uma vasta gama de aparelhos.</p>
+                    <p>Feita para telemóveis <strong>mais antigos ou de entrada</strong>. É compatível com a grande maioria dos aparelhos do mercado.</p>
                     <a href="https://www.mediafire.com/file/9xiaa0rnov85jmk/Aquitem-32-bit.apk/file" class="btn">Baixar</a>
                 </div>
             `;

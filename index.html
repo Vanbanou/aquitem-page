@@ -759,13 +759,23 @@
 
         /* ── RESPONSIVE ── */
         @media (max-width: 768px) {
+            .hero {
+                padding: 50px 0 40px;
+            }
+
             .hero .inner {
                 flex-direction: column;
                 text-align: center;
+                gap: 28px;
+            }
+
+            .hero-content h1 {
+                font-size: 1.8rem;
             }
 
             .hero-content p {
                 max-width: 100%;
+                font-size: 0.95rem;
             }
 
             .hero-actions {
@@ -774,37 +784,81 @@
 
             .hero-stats {
                 justify-content: center;
+                gap: 20px;
             }
 
             .hero-visual {
-                margin-top: 20px;
+                margin-top: 0;
             }
 
             .hero-phone-wrap img {
-                max-width: 220px;
+                max-width: 180px;
+            }
+
+            .downloads,
+            .features,
+            .testimonials {
+                padding: 50px 0;
+            }
+
+            .section-header {
+                margin-bottom: 30px;
+            }
+
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+
+            .feature-card {
+                padding: 20px 18px;
+            }
+
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
             }
 
             .footer-top {
                 flex-direction: column;
                 align-items: flex-start;
+                gap: 20px;
+                padding-bottom: 24px;
             }
 
             .header-cta span {
                 display: none;
             }
+
+            .hero-stats .stat-item:last-child {
+                display: none;
+            }
         }
 
         @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+
             .download-grid {
                 grid-template-columns: 1fr;
             }
 
-            .hero-stats {
-                gap: 20px;
-            }
-
             .btn-ghost {
                 display: none;
+            }
+
+            .hero-badge {
+                font-size: 0.74rem;
+            }
+
+            .warning-box {
+                flex-direction: column;
+                gap: 8px;
             }
         }
     </style>
@@ -830,10 +884,6 @@
     <section class="hero">
         <div class="container inner">
             <div class="hero-content">
-                <div class="hero-badge">
-                    <span class="dot"></span>
-                    Disponível agora para Android
-                </div>
                 <h1>
                     Gás e Combustível<br>
                     <span class="highlight">na Tua Banda</span> 🇦🇴
@@ -1020,14 +1070,6 @@
                     <a href="mailto:utalahari@gmail.com"><i class="fas fa-envelope"
                             style="margin-right:7px;"></i>utalahari@gmail.com</a>
                 </div>
-                <div class="footer-links">
-                    <h5>Redes Sociais</h5>
-                    <div class="social-links">
-                        <a href="#" class="social-link" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link" title="Twitter/X"><i class="fab fa-x-twitter"></i></a>
-                    </div>
-                </div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 Aquitem — Orgulhosamente feito em Angola.</p>
@@ -1059,14 +1101,14 @@
             const card64 = document.getElementById('card-64bit');
             const card32 = document.getElementById('card-32bit');
             const ua = navigator.userAgent;
-            const is64 = /WOW64|Win64|x64|x86_64|aarch64|arm64/.test(ua);
 
-            const target = is64 ? card64 : card32;
-            const label = is64 ? '64-bit' : '32-bit';
+            // Android: aarch64/arm64 = 64-bit; armv7/armv8l = 32-bit
+            // Default to 64-bit when uncertain — modern phones are almost always 64-bit
+            const is32 = /armv7|armv8l|ARM;|arm-/.test(ua) && !/aarch64|arm64/.test(ua);
+            const target = is32 ? card32 : card64;
 
             target.classList.add('recommended');
 
-            // Insert recommended badge
             const badge = document.createElement('div');
             badge.className = 'rec-badge';
             badge.textContent = '✨ Recomendado para si';

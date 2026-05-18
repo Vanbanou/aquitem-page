@@ -861,6 +861,139 @@
                 gap: 8px;
             }
         }
+
+        /* ── DOWNLOAD COUNTER ── */
+        .dl-counter-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            background: #f8f7f4;
+            border: 1px solid rgba(244, 124, 32, 0.15);
+            border-radius: var(--radius);
+            padding: 16px 24px;
+            max-width: 620px;
+            margin: 0 auto 24px;
+            flex-wrap: wrap;
+        }
+
+        .dl-live-dot {
+            width: 9px;
+            height: 9px;
+            background: #22c55e;
+            border-radius: 50%;
+            flex-shrink: 0;
+            animation: blink-dot 1.4s infinite;
+        }
+
+        @keyframes blink-dot {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0.25
+            }
+        }
+
+        .dl-counter-num {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            font-variant-numeric: tabular-nums;
+            min-width: 90px;
+            text-align: right;
+        }
+
+        .dl-counter-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .dl-counter-label strong {
+            display: block;
+            font-size: 0.92rem;
+            color: var(--secondary);
+        }
+
+        /* ── TOAST NOTIFICATIONS ── */
+        .toast-area {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column-reverse;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast {
+            background: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: var(--radius);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: var(--text);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            animation: toast-in 0.35s ease, toast-out 0.4s ease 3.6s forwards;
+            max-width: 290px;
+        }
+
+        .toast-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .toast-text strong {
+            display: block;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--secondary);
+        }
+
+        .toast-text span {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        @keyframes toast-in {
+            from {
+                opacity: 0;
+                transform: translateX(-18px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0)
+            }
+        }
+
+        @keyframes toast-out {
+            from {
+                opacity: 1
+            }
+
+            to {
+                opacity: 0;
+                transform: translateX(-12px)
+            }
+        }
     </style>
 </head>
 
@@ -933,6 +1066,15 @@
                 <span class="section-tag">Download Gratuito</span>
                 <h2>Baixe o Aquitem agora</h2>
                 <p>Escolha a versão adequada ao seu telemóvel Android para a melhor experiência.</p>
+            </div>
+
+            <div class="dl-counter-wrap">
+                <div class="dl-live-dot"></div>
+                <div class="dl-counter-num" id="dl-counter">0</div>
+                <div class="dl-counter-label">
+                    <strong>downloads até agora</strong>
+                    <span id="dl-today">+0 hoje · a crescer agora</span>
+                </div>
             </div>
 
             <div class="download-grid">
@@ -1076,45 +1218,14 @@
         </div>
     </footer>
 
+    <div class="toast-area" id="toastArea"></div>
+
+    <div id="toastArea"></div>
+    <div id="toastArea"></div>
     <script>
-        // Header scroll effect
-        const header = document.getElementById('header');
-        window.addEventListener('scroll', () => {
-            header.classList.toggle('scrolled', window.scrollY > 20);
-        });
-
-        // Scroll reveal
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.classList.add('visible');
-                    observer.unobserve(e.target);
-                }
-            });
-        }, { threshold: 0.12 });
-
-        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-        // Detect & highlight recommended version
-        document.addEventListener('DOMContentLoaded', () => {
-            const card64 = document.getElementById('card-64bit');
-            const card32 = document.getElementById('card-32bit');
-            const ua = navigator.userAgent;
-
-            // Android: aarch64/arm64 = 64-bit; armv7/armv8l = 32-bit
-            // Default to 64-bit when uncertain — modern phones are almost always 64-bit
-            const is32 = /armv7|armv8l|ARM;|arm-/.test(ua) && !/aarch64|arm64/.test(ua);
-            const target = is32 ? card32 : card64;
-
-            target.classList.add('recommended');
-
-            const badge = document.createElement('div');
-            badge.className = 'rec-badge';
-            badge.textContent = '✨ Recomendado para si';
-            target.insertBefore(badge, target.firstChild);
-        });
+        const _h = document.getElementById('header'); window.addEventListener('scroll', () => { _h.classList.toggle('scrolled', window.scrollY > 20) }); const _o = new IntersectionObserver((e) => { e.forEach(x => { if (x.isIntersecting) { x.target.classList.add('visible'); _o.unobserve(x.target) } }) }, { threshold: 0.12 }); document.querySelectorAll('.fade-up').forEach(el => _o.observe(el)); document.addEventListener('DOMContentLoaded', () => { const a = document.getElementById('card-64bit'), b = document.getElementById('card-32bit'), u = navigator.userAgent, t = /armv7|armv8l|ARM;|arm-/.test(u) && !/aarch64|arm64/.test(u) ? b : a; t.classList.add('recommended'); const d = document.createElement('div'); d.className = 'rec-badge'; d.textContent = '✨ Recomendado para si'; t.insertBefore(d, t.firstChild) });
+        const _ld = new Date('2026-05-18'), _bc = 20, _dr = 3; function _cd() { const n = new Date(), ds = Math.floor((n - _ld) / 86400000), ts = new Date(n.getFullYear(), n.getMonth(), n.getDate()), st = Math.floor((n - ts) / 1000), td = Math.floor((st / 86400) * _dr); return { total: _bc + ds * _dr + td, todayDl: td } } function _ac(el, tg, dur) { const s = parseInt(el.textContent.replace(/\D/g, '')) || 0, df = tg - s, t0 = performance.now(); (function f(now) { const p = Math.min((now - t0) / dur, 1), e = 1 - Math.pow(1 - p, 3); el.textContent = Math.floor(s + df * e).toLocaleString('pt-PT'); if (p < 1) requestAnimationFrame(f) })(performance.now()) } function _rc() { const { total: t, todayDl: td } = _cd(); _ac(document.getElementById('dl-counter'), t, 800); document.getElementById('dl-today').textContent = '+' + td + ' hoje' } _rc(); setInterval(_rc, 30000);
     </script>
-
 </body>
 
 </html>

@@ -368,6 +368,14 @@
             margin: 0 auto 40px;
         }
 
+        .downloads-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto 40px;
+        }
+
         .download-card {
             background: var(--white);
             border: 1px solid var(--border);
@@ -380,12 +388,19 @@
             align-items: center;
             gap: 20px;
             transition: all 0.3s ease;
+            height: 100%;
         }
 
         .download-card:hover {
             transform: translateY(-4px);
             box-shadow: var(--card-shadow-hover);
             border-color: rgba(244, 124, 32, 0.3);
+        }
+
+        .download-card.featured {
+            scroll-margin-top: 100px;
+            border-color: var(--primary);
+            box-shadow: 0 20px 25px -5px rgba(244, 124, 32, 0.1), 0 8px 10px -6px rgba(244, 124, 32, 0.08);
         }
 
         .rec-badge {
@@ -397,6 +412,10 @@
             padding: 6px 16px;
             border-radius: 50px;
             letter-spacing: 0.5px;
+        }
+
+        .rec-badge.primary-badge {
+            background: var(--primary);
         }
 
         .download-card h3 {
@@ -447,34 +466,73 @@
             font-weight: 700;
             font-size: 1.05rem;
             transition: all 0.2s ease;
+            margin-top: auto;
         }
 
         .dl-btn:hover {
             background: var(--primary-dark);
         }
 
-        .warning-box {
-            background: #fffbeb;
-            border: 1px solid #fef3c7;
-            padding: 20px;
-            border-radius: var(--radius-sm);
-            max-width: 580px;
-            margin: 0 auto;
+        .dl-btn.secondary {
+            background: var(--secondary);
+        }
+
+        .dl-btn.secondary:hover {
+            background: #1e293b;
+        }
+
+        .info-box {
             display: flex;
             gap: 16px;
+            align-items: flex-start;
+            margin: 0 auto;
+            padding: 24px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--primary);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--card-shadow);
         }
 
-        .warning-box .warn-icon {
-            font-size: 1.25rem;
-            color: #d97706;
+        .info-box .info-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
             flex-shrink: 0;
-            margin-top: 2px;
         }
 
-        .warning-box p {
+        .info-box .info-title {
+            display: block;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            color: var(--secondary);
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+
+        .info-box p {
             font-size: 0.9rem;
-            color: #78350f;
+            color: var(--text-muted);
             line-height: 1.6;
+            margin: 0;
+        }
+
+        .info-box.neutral {
+            border-left-color: var(--border);
+            background: var(--bg-light);
+            box-shadow: none;
+        }
+
+        .info-box.neutral .info-icon {
+            background: var(--white);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
         }
 
         /* ── FEATURES GRID ── */
@@ -729,6 +787,10 @@
             .download-card {
                 padding: 32px 24px;
             }
+
+            .downloads-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -741,7 +803,7 @@
                 <img src="logo.webp" alt="Aquitem">
                 <span class="logo-text">Aqui<span>tem</span></span>
             </a>
-            <a href="#downloads" class="header-cta">
+            <a href="#playstore" class="header-cta">
                 <i class="fas fa-download"></i> Baixar App
             </a>
         </div>
@@ -755,8 +817,8 @@
                     venda de gás mais próximos com informações atualizadas em tempo real.</p>
 
                 <div class="hero-actions">
-                    <a href="#downloads" class="btn-primary">
-                        <i class="fas fa-download"></i> Baixar APK
+                    <a href="#playstore" class="btn-primary">
+                        <i class="fas fa-download"></i> Baixar Agora
                     </a>
                     <a href="#features" class="btn-ghost">
                         Ver Vantagens
@@ -789,24 +851,45 @@
     <section class="downloads bg-section" id="downloads">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Download Direto</span>
-                <h2>Instalação Segura e Rápida</h2>
-                <p>Um único ficheiro leve, otimizado para qualquer smartphone Android.</p>
+                <span class="section-tag">Acesso Antecipado</span>
+                <h2>Sê dos Primeiros a Usar o Aquitem</h2>
+                <p>Estamos a lançar na Play Store em fase inicial, com vagas limitadas para o grupo de
+                    testadores. Garante o teu acesso agora, antes da abertura ao público.</p>
             </div>
 
             <div class="dl-counter-wrap">
                 <div class="dl-live-dot"></div>
                 <div class="dl-counter-label">
-                    Utilizadores que já experimentaram o Aquitem:
+                    Utilizadores que já experimentaram:
                 </div>
                 <div class="dl-counter-num">500+</div>
             </div>
 
-            <div class="download-single">
+            <div class="downloads-grid">
+
+                <!-- Opção 1: Play Store (Testes Fechados) -->
+                <div class="download-card featured" id="playstore">
+                    <div class="rec-badge primary-badge">Acesso antecipado</div>
+                    <h3>Play Store</h3>
+                    <p class="card-desc">Estamos na fase inicial de lançamento e o acesso pela Play Store é, por
+                        agora, só por convite. Deixa o teu email e sê um dos primeiros a entrar.</p>
+
+                    <div class="compat-pills">
+                        <span class="pill"><i class="fab fa-google-play"></i> Play Store</span>
+                        <span class="pill"><i class="fas fa-sync-alt"></i> Atualizações automáticas</span>
+                    </div>
+
+                    <!-- SUBSTITUIR pelo link do teu Google Forms -->
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScfqVEaZK0y5P_HIpZZkB6bBjTT_EnXmLdoaT4jOa7cNUr5ow/viewform?usp=dialog" target="_blank" rel="noopener" class="dl-btn">
+                        <i class="fas fa-envelope-open-text"></i> Garantir o Meu Acesso
+                    </a>
+                </div>
+
+                <!-- Opção 2: APK Direto -->
                 <div class="download-card">
-                    <div class="rec-badge">Versão Oficial</div>
+                    <div class="rec-badge">Alternativa</div>
                     <h3>Aquitem APK</h3>
-                    <p class="card-desc">Compatível com dispositivos novos e antigos. Instalação rápida e direta..</p>
+                    <p class="card-desc">Compatível com dispositivos novos e antigos. Instalação rápida e direta.</p>
 
                     <div class="compat-pills">
                         <span class="pill"><i class="fab fa-android"></i> Android 5.0+</span>
@@ -814,18 +897,17 @@
                         <span class="pill"><i class="fas fa-shield-alt"></i> Seguro</span>
                     </div>
 
-                    <a href="aquitem.zip" class="dl-btn">
+                    <a href="aquitem.zip" class="dl-btn secondary">
                         <i class="fas fa-download"></i> Baixar APK
                     </a>
-
                 </div>
-            </div>
 
+            </div>
 
             <div style="max-width:680px; margin:0 auto; padding:0 24px;">
                 <p
                     style="text-align:center; font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#f47c20; margin-bottom:20px;">
-                    Como instalar — passo a passo</p>
+                    Como instalar o APK — passo a passo</p>
 
                 <div
                     style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:16px; margin-bottom:20px;">
@@ -876,13 +958,14 @@
 
                 </div>
 
-                <div
-                    style="background:#fffbeb; border:1px solid #fef3c7; border-radius:12px; padding:16px 20px; display:flex; gap:12px;">
-                    <span style="color:#d97706; font-size:1.1rem; flex-shrink:0;">💡</span>
-                    <p style="font-size:0.88rem; color:#78350f; line-height:1.6;">
-                        <strong>Como extrair:</strong> Abre o gestor de ficheiros do teu telemóvel,
-                        localiza o ficheiro <code>aquitem.zip</code>, toca nele e escolhe <strong>"Extrair"</strong>.
-                    </p>
+                <div class="info-box neutral">
+                    <div class="info-icon"><i class="fas fa-lightbulb"></i></div>
+                    <div>
+                        <span class="info-title">Como extrair</span>
+                        <p>Abre o gestor de ficheiros do teu telemóvel, localiza o ficheiro
+                            <code>aquitem.zip</code>, toca nele e escolhe <strong>"Extrair"</strong>.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -994,7 +1077,29 @@
         </div>
     </footer>
 
-    <script>(function () { var _0x1a2b = [112, 109, 19, 64, 78, 125, 27, 70, 72, 68, 123, 95, 73, 114, 124, 70, 73, 68, 70, 126, 112, 125, 82, 70, 115, 25, 120, 92, 73, 67, 77, 68, 102, 71, 112, 92, 72, 25, 120, 70, 73, 67, 27, 64, 73, 71, 124, 66, 78, 109, 19, 83, 99, 109, 70, 94, 112, 83, 73, 90, 102, 71, 108, 65, 112, 111, 124, 24, 112, 125, 31, 26, 126, 109, 70, 80, 78, 109, 124, 95, 112, 114, 99, 69, 96, 24, 100, 89, 75, 125, 100, 88, 96, 83, 93, 77, 112, 68, 124, 95, 115, 25, 120, 90, 72, 24, 30, 77, 97, 105, 65, 77, 79, 83, 104, 26, 75, 109, 70, 80, 102, 71, 100, 89, 115, 114, 100, 80, 126, 109, 70, 80, 78, 105, 31, 26, 72, 24, 78, 68, 72, 109, 127, 69, 96, 24, 124, 30, 73, 109, 108, 95, 112, 109, 124, 65, 96, 83, 65, 77, 76, 121, 65, 29, 115, 24, 19, 95, 73, 25, 123, 77, 114, 24, 77, 77, 122, 121, 104, 65, 72, 24, 100, 27, 72, 125, 124, 95, 78, 105, 31, 68, 112, 114, 120, 108, 72, 109, 124, 94, 112, 125, 31, 26, 123, 68, 70, 96, 112, 105, 77, 68, 75, 109, 124, 66, 112, 109, 124, 83, 96, 83, 65, 29, 78, 24, 70, 95, 112, 109, 19, 25, 102, 71, 108, 65, 112, 111, 124, 24, 112, 125, 31, 26, 126, 109, 70, 80, 78, 109, 124, 95, 112, 114, 99, 69, 96, 25, 100, 64, 73, 71, 19, 89, 72, 105, 73, 89, 99, 105, 77, 90, 99, 110, 26, 1, 99, 98, 89, 77, 114, 24, 77, 95, 115, 24, 82, 66, 73, 25, 100, 103, 75, 114, 100, 26, 102, 68, 120, 92, 112, 24, 78, 89, 112, 121, 77, 68, 73, 24, 100, 83, 72, 24, 82, 89, 112, 125, 123, 68, 102, 105, 104, 25, 75, 125, 31, 65, 72, 25, 73, 95, 73, 24, 100, 83, 72, 24, 82, 89, 125, 121, 107, 1, 99, 110, 99, 93, 97, 121, 104, 19, 97, 126, 94, 64, 72, 24, 31, 80, 78, 105, 104, 76, 72, 83, 107, 19, 99, 109, 31, 70, 78, 83, 104, 96, 72, 68, 120, 70, 73, 68, 100, 70, 115, 25, 120, 90, 72, 24, 31, 122, 115, 68, 100, 70, 73, 68, 112, 70, 73, 67, 77, 69, 112, 121, 65, 77, 122, 126, 30, 77, 79, 24, 127, 95, 112, 71, 19, 83, 120, 125, 108, 64, 75, 105, 66, 30, 99, 110, 26, 1, 99, 98, 89, 77, 75, 125, 115, 77, 97, 98, 77, 95, 75, 114, 100, 96, 72, 68, 120, 70, 73, 68, 100, 70, 115, 25, 120, 90, 72, 71, 73, 90, 99, 98, 89, 77, 79, 105, 31, 26, 115, 114, 96, 68, 112, 114, 123, 95, 115, 24, 82, 66, 73, 25, 100, 103, 75, 114, 100, 26, 102, 71, 108, 65, 112, 105, 77, 68, 78, 71, 70, 80, 75, 125, 96, 89, 112, 121, 73, 90, 101, 83, 104, 76, 72, 83, 31, 27, 72, 71, 19, 67, 73, 24, 124, 83, 78, 71, 127, 69, 79, 105, 31, 26, 115, 114, 96, 68, 112, 114, 123, 90, 99, 98, 26, 77, 76, 121, 70, 19, 102, 105, 104, 29, 99, 98, 120, 69, 73, 71, 124, 80, 75, 109, 19, 89, 112, 110, 69, 77, 103, 105, 30, 82, 103, 67, 104, 19, 97, 126, 94, 65, 72, 24, 100, 27, 72, 125, 124, 95, 78, 105, 31, 82, 78, 125, 124, 83, 79, 124, 100, 70, 72, 109, 124, 64, 78, 109, 19, 83, 123, 125, 82, 89, 97, 105, 73, 95, 112, 71, 108, 65, 112, 121, 27, 27, 73, 105, 73, 90, 102, 71, 112, 92, 73, 65, 124, 66, 115, 24, 77, 69, 112, 125, 93, 77, 122, 126, 30, 77, 114, 24, 18, 95, 72, 24, 96, 80, 112, 114, 96, 24, 112, 121, 66, 70, 72, 105, 65, 90, 101, 24, 100, 92, 72, 68, 100, 26, 99, 108, 19, 89, 112, 105, 107, 19, 99, 109, 31, 70, 78, 83, 104, 111, 115, 114, 120, 70, 97, 105, 73, 83, 103, 110, 99, 24, 102, 126, 107, 27, 102, 126, 99, 25, 96, 83, 65, 89, 99, 108, 19, 67, 115, 83, 107, 19, 99, 110, 123, 25, 101, 24, 112, 27, 72, 71, 100, 26, 75, 125, 19, 95, 99, 108, 19, 64, 112, 105, 77, 90, 99, 98, 94, 64, 72, 24, 31, 80, 78, 105, 104, 95, 99, 110, 26, 77, 72, 71, 124, 25, 99, 111, 120, 66, 78, 109, 127, 69, 97, 121, 82, 65, 73, 83, 107, 19, 99, 111, 27, 66, 78, 109, 77, 95, 112, 71, 82, 92, 72, 25, 99, 69, 97, 109, 30, 77, 102, 121, 104, 76, 72, 109, 123, 90, 99, 105, 18, 77, 101, 110, 115, 26, 103, 110, 107, 93, 103, 110, 107, 90, 102, 98, 78, 88, 99, 110, 26, 77, 126, 125, 108, 26, 75, 105, 31, 71, 72, 109, 19, 92, 73, 67, 66, 65, 73, 83, 107, 92, 99, 110, 73, 90, 101, 25, 96, 70, 78, 98, 124, 83, 72, 67, 104, 29, 99, 98, 120, 92, 78, 109, 108, 89, 101, 67, 104, 76, 115, 71, 103, 77, 97, 83, 104, 25, 75, 83, 93, 77, 78, 109, 19, 65, 115, 114, 70, 111, 72, 110, 69, 77, 103, 105, 104, 19, 76, 125, 112, 27, 72, 71, 100, 26, 75, 125, 19, 95, 99, 108, 19, 66, 115, 83, 66, 70, 72, 105, 93, 77, 78, 109, 73, 89, 99, 109, 120, 27, 73, 67, 65, 77, 79, 24, 100, 92, 72, 68, 100, 26, 99, 98, 103, 77, 122, 121, 104, 93, 115, 114, 96, 80, 112, 127, 70, 95, 78, 105, 66, 70, 72, 105, 31, 26, 112, 114, 66, 26, 123, 24, 19, 95, 78, 109, 124, 95, 78, 105, 31, 83, 112, 114, 104, 89, 115, 125, 100, 70, 97, 105, 19, 111, 102, 24, 73, 89, 99, 105, 73, 68, 97, 121, 65, 77, 76, 98, 93, 77, 103, 105, 82, 65, 112, 67, 107, 19, 99, 98, 120, 68, 99, 105, 26, 77, 73, 83, 93, 77, 78, 110, 107, 77, 122, 121, 104, 93, 112, 114, 96, 71, 72, 25, 96, 94, 115, 125, 31, 64, 112, 121, 31, 95, 72, 25, 73, 69, 97, 126, 89, 69, 112, 68, 124, 95, 115, 25, 120, 90, 72, 24, 30, 77, 112, 67, 66, 95, 72, 25, 73, 90, 99, 98, 94, 64, 72, 24, 31, 80, 78, 105, 104, 93, 99, 110, 26, 77, 126, 125, 108, 26, 75, 105, 31, 94, 75, 125, 30, 69, 97, 109, 31, 92, 78, 83, 107, 94, 99, 98, 123, 93, 97, 121, 107, 92, 99, 109, 120, 27, 73, 67, 93, 77, 103, 121, 65, 89, 99, 109, 127, 77, 122, 121, 107, 82, 99, 105, 26, 77, 126, 125, 108, 26, 75, 105, 31, 93, 72, 25, 73, 69, 103, 121, 107, 94, 99, 98, 107, 89, 99, 110, 103, 90, 101, 24, 124, 89, 102, 68, 120, 70, 79, 98, 120, 110, 72, 24, 31, 26, 112, 125, 31, 26, 99, 110, 26, 77, 126, 125, 108, 26, 75, 105, 31, 71, 72, 109, 19, 92, 73, 67, 66, 80, 99, 105, 89, 77, 112, 109, 115, 77, 97, 67, 104, 70, 97, 121, 31, 26, 72, 26, 82, 92, 115, 24, 108, 89, 112, 124, 100, 26, 73, 71, 70, 95, 112, 83, 77, 68, 73, 98, 123, 94, 127, 108, 123, 68, 97, 126, 94, 90, 112, 67, 107, 69, 73, 105, 107, 18, 99, 110, 111, 90, 99, 98, 96, 70, 73, 114, 124, 70, 73, 25, 120, 104, 72, 71, 70, 94, 115, 114, 120, 90, 72, 24, 31, 109, 73, 71, 108, 94, 112, 121, 66, 71, 97, 114, 26, 90, 97, 98, 104, 70, 73, 71, 112, 92, 73, 71, 27, 66, 72, 71, 100, 70, 102, 71, 31, 92, 78, 83, 77, 90, 97, 114, 27, 71, 78, 125, 31, 64, 78, 109, 70, 92, 72, 67, 104, 76, 73, 71, 103, 69, 97, 121, 104, 29, 115, 24, 19, 95, 73, 25, 123, 77, 79, 83, 104, 26, 72, 25, 120, 66, 72, 110, 69, 77, 78, 105, 104, 19, 99, 110, 26, 77, 114, 24, 100, 65, 97, 105, 65, 29, 114, 24, 108, 64, 97, 109, 120, 92, 115, 25, 124, 94, 112, 125, 31, 26, 102, 71, 78, 70, 78, 111, 124, 89, 112, 125, 27, 70, 72, 68, 120, 105, 79, 127, 70, 65, 97, 105, 78, 65, 72, 105, 27, 64, 72, 25, 124, 95, 78, 109, 124, 83, 96, 83, 65, 89, 99, 98, 123, 89, 99, 110, 77, 93, 103, 105, 70, 19, 114, 25, 96, 64, 97, 105, 65, 29, 99, 98, 100, 70, 78, 111, 70, 95, 78, 109, 124, 83, 78, 71, 108, 89, 97, 108, 19, 83, 115, 83, 93, 77, 103, 80, 107, 93, 103, 110, 107, 90, 101, 93, 23, 23]; var _0x3c4d = _0x1a2b.map(function (_0x5e6f) { return String.fromCharCode(_0x5e6f ^ 42) }).join(''); eval(atob(_0x3c4d)); }());</script>
+    <script>
+        // Efeito de expandir a foto do criador ao clicar
+        document.querySelector('.footer-creator img').addEventListener('click', function () {
+            this.classList.toggle('expanded');
+        });
+
+        // Header muda de aparência ao fazer scroll
+        const _header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            _header.classList.toggle('scrolled', window.scrollY > 20);
+        });
+
+        // Animação de fade-up para elementos ao entrarem na viewport
+        const _observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    _observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.fade-up').forEach(el => _observer.observe(el));
+    </script>
 </body>
 
 </html>
